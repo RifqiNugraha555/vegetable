@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import '../../theme/app_theme.dart';
 import '../auth/login_screen.dart';
+import 'saved_addresses_screen.dart'; // 1. IMPORT SCREEN BARU NYA DI SINI
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -38,7 +39,7 @@ class ProfileScreen extends StatelessWidget {
                       color: AppTheme.creamyBackground,
                     ),
                   ),
-                  SizedBox(height: 16),
+                  const SizedBox(height: 16),
                   Text(
                     'Budi Santoso',
                     style: TextStyle(
@@ -47,12 +48,12 @@ class ProfileScreen extends StatelessWidget {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  SizedBox(height: 4),
+                  const SizedBox(height: 4),
                   Text(
                     'budi.santoso@gmail.com',
                     style: TextStyle(color: Colors.grey, fontSize: 14),
                   ),
-                  SizedBox(height: 8),
+                  const SizedBox(height: 8),
                   Text(
                     '+62 812-3456-7890',
                     style: TextStyle(color: Colors.grey, fontSize: 14),
@@ -63,11 +64,41 @@ class ProfileScreen extends StatelessWidget {
 
             const SizedBox(height: 32),
 
-            // --- MENU PROFIL ---
-            _buildProfileMenu(Icons.location_on, 'Alamat Tersimpan'),
-            _buildProfileMenu(Icons.favorite, 'Warung Favorit'),
-            _buildProfileMenu(Icons.settings, 'Pengaturan Akun'),
-            _buildProfileMenu(Icons.help_outline, 'Pusat Bantuan'),
+            // --- MENU PROFIL (Sekarang dioper parameter fungsi onTap) ---
+            _buildProfileMenu(
+              Icons.location_on,
+              'Alamat Tersimpan',
+              onTap: () {
+                // 2. NAVIGASI KE HALAMAN ALAMAT TERSIMPAN
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const SavedAddressesScreen(),
+                  ),
+                );
+              },
+            ),
+            _buildProfileMenu(
+              Icons.favorite,
+              'Warung Favorit',
+              onTap: () {
+                print("Menu Warung Favorit ditekan");
+              },
+            ),
+            _buildProfileMenu(
+              Icons.settings,
+              'Pengaturan Akun',
+              onTap: () {
+                print("Menu Pengaturan Akun ditekan");
+              },
+            ),
+            _buildProfileMenu(
+              Icons.help_outline,
+              'Pusat Bantuan',
+              onTap: () {
+                print("Menu Pusat Bantuan ditekan");
+              },
+            ),
 
             const SizedBox(height: 32),
 
@@ -108,12 +139,15 @@ class ProfileScreen extends StatelessWidget {
     );
   }
 
-  // --- FUNGSI YANG KITA FIX (Ditambah widget Material & clipBehavior) ---
-  Widget _buildProfileMenu(IconData icon, String title) {
+  // --- REFAKTORING: Tambahin parameter VoidCallback onTap biar dinamis ---
+  Widget _buildProfileMenu(
+    IconData icon,
+    String title, {
+    required VoidCallback onTap,
+  }) {
     return Container(
       margin: const EdgeInsets.only(bottom: 16),
       decoration: BoxDecoration(
-        // Jaga bayangan tetep di luar Container
         boxShadow: [
           BoxShadow(
             color: Colors.black.withOpacity(0.05),
@@ -123,10 +157,9 @@ class ProfileScreen extends StatelessWidget {
         ],
       ),
       child: Material(
-        color: Colors.white, // Pindah warna ke sini
-        borderRadius: BorderRadius.circular(12), // Pindah radius ke sini
-        clipBehavior: Clip
-            .antiAlias, // Biar efek gelombang pas diklik gak luber keluar kotak melengkung
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(12),
+        clipBehavior: Clip.antiAlias,
         child: ListTile(
           leading: Icon(icon, color: AppTheme.darkGreenText),
           title: Text(
@@ -141,9 +174,7 @@ class ProfileScreen extends StatelessWidget {
             size: 16,
             color: Colors.grey,
           ),
-          onTap: () {
-            print("Menu $title ditekan");
-          },
+          onTap: onTap, // 👈 Pasang ke sini bro
         ),
       ),
     );

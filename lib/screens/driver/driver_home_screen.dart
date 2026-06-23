@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import '../../theme/app_theme.dart';
 import '../../core/widgets/custom_button.dart';
 import 'driver_active_order_screen.dart';
+import 'driver_profile_screen.dart';
 
 class DriverHomeScreen extends StatefulWidget {
   const DriverHomeScreen({super.key});
@@ -77,9 +78,22 @@ class _DriverHomeScreenState extends State<DriverHomeScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   // Tombol Profil / Menu
-                  const CircleAvatar(
-                    backgroundColor: AppTheme.darkGreenText,
-                    child: Icon(Icons.person, color: AppTheme.creamyBackground),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const DriverProfileScreen(),
+                        ),
+                      );
+                    },
+                    child: const CircleAvatar(
+                      backgroundColor: AppTheme.darkGreenText,
+                      child: Icon(
+                        Icons.person,
+                        color: AppTheme.creamyBackground,
+                      ),
+                    ),
                   ),
 
                   // Card Pendapatan

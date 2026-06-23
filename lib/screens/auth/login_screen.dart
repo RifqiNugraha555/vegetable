@@ -7,7 +7,7 @@ import '../../core/widgets/custom_button.dart';
 // Import semua halaman beranda (termasuk Admin sekarang)
 import '../customer/customer_home_screen.dart';
 import '../driver/driver_home_screen.dart';
-import '../seller/seller_home_screen.dart';
+import '../seller/seller_main_screen.dart';
 import '../admin/admin_store_list_screen.dart'; // <-- Import Admin ditambahkan
 
 class LoginScreen extends StatefulWidget {
@@ -40,13 +40,27 @@ class _LoginScreenState extends State<LoginScreen> {
     } else if (email.contains('toko') || email.contains('seller')) {
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => const SellerHomeScreen()),
+        MaterialPageRoute(builder: (context) => const SellerMainScreen()),
       );
-    } else {
-      // Default (Customer)
+    } else if (email.contains('customer') || email.contains('user')) {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (context) => const CustomerHomeScreen()),
+      );
+    } else {
+      // Jika email tidak sesuai, tampilkan pesan error
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: const Text('Login Gagal'),
+          content: const Text('Email tidak dikenali. Silakan coba lagi.'),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: const Text('OK'),
+            ),
+          ],
+        ),
       );
     }
   }
