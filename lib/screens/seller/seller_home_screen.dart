@@ -1,6 +1,7 @@
 // lib/screens/seller/seller_home_screen.dart
 
 import 'package:flutter/material.dart';
+import 'package:supabase_flutter/supabase_flutter.dart'; // 1. Import Supabase
 import '../../theme/app_theme.dart';
 
 class SellerHomeScreen extends StatefulWidget {
@@ -13,13 +14,58 @@ class SellerHomeScreen extends StatefulWidget {
 class _SellerHomeScreenState extends State<SellerHomeScreen> {
   bool _isStoreOpen = true;
 
-  // Dummy data list sayuran milik toko
-  final List<Map<String, dynamic>> myProducts = [
-    {"name": "Kangkung Segar", "price": 3000, "unit": "Ikat", "stock": true},
-    {"name": "Bayam Hijau", "price": 2500, "unit": "Ikat", "stock": true},
-    {"name": "Wortel Impor", "price": 12000, "unit": "Kg", "stock": false},
-    {"name": "Tomat Merah", "price": 8000, "unit": "Kg", "stock": true},
-  ];
+  // 2. Buat variabel penampung data dari Supabase & status loading
+  List<Map<String, dynamic>> _myProducts = [];
+  bool _isLoading = true;
+
+  @override
+  void initState() {
+    super.initState();
+    _fetchProductsFromSupabase(); // 3. Panggil fungsi ambil data pas halaman dibuka
+  }
+
+  // 4. Fungsi ambil data dari tabel 'product' Supabase
+  Future<void> _fetchProductsFromSupabase() async {
+    setState(() {
+      _isLoading = true;
+    });
+
+    try {
+      final response = await Supabase.instance.client
+          .from('product')
+          .select()
+          .order('id', ascending: true); // Urutkan berdasarkan ID
+
+      setState(() {
+        _myProducts = List<Map<String, dynamic>>.from(response);
+        _isLoading = false;
+      });
+    } catch (e) {
+      setState(() {
+        _isLoading = false;
+      });
+      // Tampilkan pesan kalau gagal ambil data
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Gagal mengambil data produk: $e')),
+      );
+    }
+  }
+
+  // 5. Fungsi Opsional: Update status stok langsung ke Supabase
+  Future<void> _updateStockInSupabase(
+    int productId,
+    bool newStockStatus,
+  ) async {
+    try {
+      // Catatan: Ini baru akan tersimpan di Supabase kalau lu udah tambah kolom 'stock' (boolean) di dashboard
+      await Supabase.instance.client
+          .from('product')
+          .update({'stock': newStockStatus})
+          .eq('id', productId);
+    } catch (e) {
+      print("Gagal update ke DB (mungkin kolom 'stock' belum lu buat): $e");
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -256,71 +302,106 @@ class _SellerHomeScreenState extends State<SellerHomeScreen> {
               ),
               const SizedBox(height: 12),
 
-              // List Builder untuk Produk Toko
-              ListView.builder(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                itemCount: myProducts.length,
-                itemBuilder: (context, index) {
-                  final product = myProducts[index];
-                  return Container(
-                    margin: const EdgeInsets.only(bottom: 12),
-                    padding: const EdgeInsets.all(12),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(12),
-                      border: Border.all(color: Colors.grey.shade200),
-                    ),
-                    child: Row(
-                      children: [
-                        Container(
-                          padding: const EdgeInsets.all(8),
+              // 6. Tampilkan loading spinner jika sedang mengambil data
+              _isLoading
+                  ? const Center(
+                      child: Padding(
+                        padding: EdgeInsets.all(24.0),
+                        child: CircularProgressIndicator(),
+                      ),
+                    )
+                  : _myProducts.isEmpty
+                  ? const Center(
+                      child: Padding(
+                        padding: EdgeInsets.all(24.0),
+                        child: Text('Belum ada produk di database.'),
+                      ),
+                    )
+                  : ListView.builder(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemCount: _myProducts.length,
+                      itemBuilder: (context, index) {
+                        final product = _myProducts[index];
+
+                        // Ambil nilai aman dari database atau pakai fallback default
+                        final String name = product["name"] ?? 'Tanpa Nama';
+                        final int price = product["price"] ?? 0;
+                        final String unit =
+                            product["unit"] ??
+                            'Ikat'; // Default 'Ikat' jika kolom belum ada
+                        final bool hasStock =
+                            product["stock"] ??
+                            true; // Default true jika kolom belum ada
+
+                        return Container(
+                          margin: const EdgeInsets.only(bottom: 12),
+                          padding: const EdgeInsets.all(12),
                           decoration: BoxDecoration(
-                            color: AppTheme.darkGreenText.withOpacity(0.1),
-                            borderRadius: BorderRadius.circular(8),
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(12),
+                            border: Border.all(color: Colors.grey.shade200),
                           ),
-                          child: const Icon(
-                            Icons.eco,
-                            color: AppTheme.darkGreenText,
-                          ),
-                        ),
-                        const SizedBox(width: 16),
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                          child: Row(
                             children: [
-                              Text(
-                                product["name"],
-                                style: const TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 15,
+                              Container(
+                                padding: const EdgeInsets.all(8),
+                                decoration: BoxDecoration(
+                                  color: AppTheme.darkGreenText.withOpacity(
+                                    0.1,
+                                  ),
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                                child: const Icon(
+                                  Icons.eco,
+                                  color: AppTheme.darkGreenText,
                                 ),
                               ),
-                              Text(
-                                'Rp ${product["price"]} / ${product["unit"]}',
-                                style: const TextStyle(
-                                  color: Colors.grey,
-                                  fontSize: 12,
+                              const SizedBox(width: 16),
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      name,
+                                      style: const TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 15,
+                                      ),
+                                    ),
+                                    Text(
+                                      'Rp $price / $unit',
+                                      style: const TextStyle(
+                                        color: Colors.grey,
+                                        fontSize: 12,
+                                      ),
+                                    ),
+                                  ],
                                 ),
+                              ),
+                              // Switch ketersediaan stok
+                              Switch(
+                                value: hasStock,
+                                onChanged: (bool value) {
+                                  setState(() {
+                                    // Update tampilan lokal secara instan
+                                    product["stock"] = value;
+                                  });
+                                  // Kirim update ke database Supabase
+                                  if (product["id"] != null) {
+                                    _updateStockInSupabase(
+                                      product["id"],
+                                      value,
+                                    );
+                                  }
+                                },
+                                activeColor: AppTheme.darkGreenText,
                               ),
                             ],
                           ),
-                        ),
-                        // Switch Switch ketersediaan stok
-                        Switch(
-                          value: product["stock"],
-                          onChanged: (bool value) {
-                            setState(() {
-                              product["stock"] = value;
-                            });
-                          },
-                          activeColor: AppTheme.darkGreenText,
-                        ),
-                      ],
+                        );
+                      },
                     ),
-                  );
-                },
-              ),
             ],
           ),
         ),
