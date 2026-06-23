@@ -26,15 +26,11 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: AppTheme.lightTheme,
 
-      // Balikin ke SplashScreen di sini biar alurnya normal lagi
       home: const SplashScreen(),
     );
   }
 }
 
-// =========================================================================
-// WIDGET TAMBAHAN DI BAWAH INI CUMA BUAT NGETES AMBIL DATA DARI SUPABASE LU
-// =========================================================================
 class ProductListScreen extends StatefulWidget {
   const ProductListScreen({super.key});
 
@@ -43,7 +39,6 @@ class ProductListScreen extends StatefulWidget {
 }
 
 class _ProductListScreenState extends State<ProductListScreen> {
-  // Fungsi untuk mengambil data dari database
   Future<List<Map<String, dynamic>>> _fetchData() async {
     final response = await Supabase.instance.client.from('product').select();
     return response;
@@ -59,12 +54,10 @@ class _ProductListScreenState extends State<ProductListScreen> {
       body: FutureBuilder<List<Map<String, dynamic>>>(
         future: _fetchData(),
         builder: (context, snapshot) {
-          // 1. Kondisi pas aplikasi lagi loading nyari data ke internet
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
           }
 
-          // 2. Kondisi kalau eror (misal: RLS belum dimatiin, atau nama tabel salah)
           if (snapshot.hasError) {
             return Center(
               child: Padding(
@@ -83,23 +76,18 @@ class _ProductListScreenState extends State<ProductListScreen> {
 
           final data = snapshot.data ?? [];
 
-          // 3. Kondisi kalau koneksi sukses, tapi isi tabel di Supabase lu emang masih kosong
           if (data.isEmpty) {
             return const Center(
-              child: Text(
-                'Koneksi Sukses! Tapi isi tabel lu masih kosong, coba isi row dulu di dashboard.',
-              ),
+              child: Text('Koneksi Sukses! Tapi isi tabel lu masih kosong.'),
             );
           }
 
-          // 4. Kondisi kalau data berhasil diambil dan ada isinya
           return ListView.builder(
             itemCount: data.length,
             itemBuilder: (context, index) {
               final item = data[index];
               return ListTile(
                 leading: const Icon(Icons.shopping_bag, color: Colors.green),
-
                 title: Text(item['name'] ?? 'Kolom name tidak ditemukan'),
                 subtitle: Text('Rp ${item['price'] ?? 0}'),
               );
