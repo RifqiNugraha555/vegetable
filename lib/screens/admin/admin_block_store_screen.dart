@@ -47,10 +47,8 @@ class AdminBlockStoreScreen extends StatelessWidget {
               vertical: 20.0,
             ),
             child: Column(
-              crossAxisAlignment:
-                  CrossAxisAlignment.start, // Rata kiri untuk teks detail
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // --- TOMBOL BACK (opsional, tapi disarankan biar bisa balik) ---
                 InkWell(
                   onTap: () => Navigator.pop(context),
                   child: Container(
@@ -74,7 +72,6 @@ class AdminBlockStoreScreen extends StatelessWidget {
 
                 const SizedBox(height: 30),
 
-                // --- JUDUL ---
                 const Center(
                   child: Text(
                     'Blokir Toko',
@@ -88,7 +85,6 @@ class AdminBlockStoreScreen extends StatelessWidget {
 
                 const SizedBox(height: 40),
 
-                // --- DETAIL TOKO ---
                 _buildDetailItem('Nama Toko', 'Toko A'),
                 _buildDetailItem(
                   'Alamat',
@@ -99,7 +95,6 @@ class AdminBlockStoreScreen extends StatelessWidget {
                   'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud',
                 ),
 
-                // --- FOTO TOKO ---
                 const Text(
                   'Foto Toko',
                   style: TextStyle(
@@ -123,7 +118,6 @@ class AdminBlockStoreScreen extends StatelessWidget {
 
                 const SizedBox(height: 50),
 
-                // --- TOMBOL BLOKIR ---
                 Center(
                   child: CustomButton(
                     text: 'B l o k i r',
@@ -131,9 +125,7 @@ class AdminBlockStoreScreen extends StatelessWidget {
                     textColor: AppTheme.darkGreenText,
                     onPressed: () {
                       print("Toko Berhasil Diblokir!");
-                      Navigator.pop(
-                        context,
-                      ); // Balik ke list toko setelah blokir
+                      Navigator.pop(context);
                     },
                   ),
                 ),

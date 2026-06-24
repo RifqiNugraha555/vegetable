@@ -7,14 +7,13 @@ class CustomTextField extends StatelessWidget {
   final String label;
   final String hintText;
   final bool isPassword;
-  final int maxLines; // Tambahan untuk mengatur tinggi kotak
-
+  final int maxLines;
   const CustomTextField({
     super.key,
     required this.label,
     required this.hintText,
     this.isPassword = false,
-    this.maxLines = 1, // Defaultnya 1 baris
+    this.maxLines = 1,
   });
 
   @override
@@ -33,7 +32,7 @@ class CustomTextField extends StatelessWidget {
         const SizedBox(height: 6),
         TextFormField(
           obscureText: isPassword,
-          maxLines: maxLines, // Dimasukkan ke sini
+          maxLines: maxLines,
           style: const TextStyle(color: AppTheme.creamyBackground),
           decoration: InputDecoration(
             hintText: hintText,

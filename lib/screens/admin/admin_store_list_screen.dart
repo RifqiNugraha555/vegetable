@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import '../../theme/app_theme.dart';
-import '../auth/login_screen.dart'; // Buat fitur Logout Admin
+import '../auth/login_screen.dart';
 
 class AdminStoreListScreen extends StatefulWidget {
   const AdminStoreListScreen({super.key});
@@ -12,7 +12,6 @@ class AdminStoreListScreen extends StatefulWidget {
 }
 
 class _AdminStoreListScreenState extends State<AdminStoreListScreen> {
-  // Data dummy daftar toko yang ada di sistem
   List<Map<String, dynamic>> stores = [
     {
       "name": "Warung Sayur Mang Ujang",
@@ -20,11 +19,7 @@ class _AdminStoreListScreenState extends State<AdminStoreListScreen> {
       "isActive": true,
     },
     {"name": "Toko Sayur Segar Bu Imah", "owner": "Ibu Imah", "isActive": true},
-    {
-      "name": "Sayur Maju Jaya",
-      "owner": "Asep Knalpot",
-      "isActive": false,
-    }, // Contoh toko yang diblokir
+    {"name": "Sayur Maju Jaya", "owner": "Asep Knalpot", "isActive": false},
     {"name": "Sayur Organik Lembang", "owner": "Teh Nisa", "isActive": true},
   ];
 
@@ -62,7 +57,6 @@ class _AdminStoreListScreenState extends State<AdminStoreListScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // --- SUMMARY KOTAK ATAS ---
             Row(
               children: [
                 Expanded(
@@ -96,7 +90,6 @@ class _AdminStoreListScreenState extends State<AdminStoreListScreen> {
             ),
             const SizedBox(height: 12),
 
-            // --- LIST TOKO ---
             Expanded(
               child: ListView.builder(
                 itemCount: stores.length,
@@ -126,7 +119,6 @@ class _AdminStoreListScreenState extends State<AdminStoreListScreen> {
                     ),
                     child: Row(
                       children: [
-                        // Icon Toko
                         CircleAvatar(
                           backgroundColor: isActive
                               ? AppTheme.darkGreenText.withOpacity(0.1)
@@ -141,7 +133,6 @@ class _AdminStoreListScreenState extends State<AdminStoreListScreen> {
                         ),
                         const SizedBox(width: 16),
 
-                        // Info Toko
                         Expanded(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -156,8 +147,7 @@ class _AdminStoreListScreenState extends State<AdminStoreListScreen> {
                                   fontWeight: FontWeight.bold,
                                   decoration: isActive
                                       ? TextDecoration.none
-                                      : TextDecoration
-                                            .lineThrough, // Coret nama kalau diblokir
+                                      : TextDecoration.lineThrough,
                                 ),
                               ),
                               const SizedBox(height: 4),
@@ -172,12 +162,10 @@ class _AdminStoreListScreenState extends State<AdminStoreListScreen> {
                           ),
                         ),
 
-                        // Tombol Aksi Blokir / Buka Blokir
                         ElevatedButton(
                           onPressed: () {
                             setState(() {
-                              stores[index]["isActive"] =
-                                  !isActive; // Toggle status
+                              stores[index]["isActive"] = !isActive;
                             });
                           },
                           style: ElevatedButton.styleFrom(
@@ -216,7 +204,6 @@ class _AdminStoreListScreenState extends State<AdminStoreListScreen> {
     );
   }
 
-  // Fungsi pembantu buat bikin kotak ringkasan di atas
   Widget _buildSummaryCard({
     required String title,
     required String count,

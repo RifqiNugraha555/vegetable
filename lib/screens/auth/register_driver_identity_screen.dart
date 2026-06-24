@@ -23,7 +23,6 @@ class RegisterDriverIdentityScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                // --- TOMBOL BACK ---
                 Align(
                   alignment: Alignment.topLeft,
                   child: InkWell(
@@ -50,7 +49,6 @@ class RegisterDriverIdentityScreen extends StatelessWidget {
 
                 const SizedBox(height: 20),
 
-                // --- JUDUL HALAMAN ---
                 const Text(
                   'Identitas\nDriver',
                   textAlign: TextAlign.center,
@@ -64,7 +62,6 @@ class RegisterDriverIdentityScreen extends StatelessWidget {
 
                 const SizedBox(height: 40),
 
-                // --- FORM INPUT FIELDS ---
                 const CustomTextField(
                   label: 'Nama Asli',
                   hintText: 'Masukkan Nama Asli',
@@ -77,7 +74,6 @@ class RegisterDriverIdentityScreen extends StatelessWidget {
                 ),
                 const SizedBox(height: 16),
 
-                // --- KOTAK UPLOAD FOTO KTP ---
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -92,12 +88,10 @@ class RegisterDriverIdentityScreen extends StatelessWidget {
                     const SizedBox(height: 6),
                     GestureDetector(
                       onTap: () {
-                        // Nanti diisi logika untuk buka galeri kamera buat foto KTP
                         print("Buka Kamera / Galeri HP");
                       },
                       child: Container(
-                        height:
-                            180, // Dibuat agak tinggi karena KTP biasanya landscape
+                        height: 180,
                         width: double.infinity,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(8),
@@ -120,13 +114,11 @@ class RegisterDriverIdentityScreen extends StatelessWidget {
 
                 const SizedBox(height: 50),
 
-                // --- TOMBOL NEXT ---
                 CustomButton(
                   text: 'N E X T',
                   backgroundColor: AppTheme.creamyBackground,
                   textColor: AppTheme.darkGreenText,
                   onPressed: () {
-                    // Navigasi ke Detail Kendaraan
                     Navigator.push(
                       context,
                       MaterialPageRoute(

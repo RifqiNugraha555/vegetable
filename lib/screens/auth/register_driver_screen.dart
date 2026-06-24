@@ -12,7 +12,7 @@ class RegisterDriverScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppTheme.darkGreenText, // Background Hijau Tua
+      backgroundColor: AppTheme.darkGreenText,
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
@@ -23,7 +23,6 @@ class RegisterDriverScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                // --- TOMBOL BACK ---
                 Align(
                   alignment: Alignment.topLeft,
                   child: InkWell(
@@ -50,9 +49,8 @@ class RegisterDriverScreen extends StatelessWidget {
 
                 const SizedBox(height: 20),
 
-                // --- JUDUL HALAMAN ---
                 const Text(
-                  'Daftar\nDriver', // Judul disesuaikan untuk Driver
+                  'Daftar\nDriver',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 36,
@@ -64,7 +62,6 @@ class RegisterDriverScreen extends StatelessWidget {
 
                 const SizedBox(height: 40),
 
-                // --- FORM INPUT FIELDS ---
                 const CustomTextField(
                   label: 'Username',
                   hintText: 'Masukkan Username',
@@ -98,13 +95,11 @@ class RegisterDriverScreen extends StatelessWidget {
 
                 const SizedBox(height: 50),
 
-                // --- TOMBOL NEXT ---
                 CustomButton(
                   text: 'N E X T',
                   backgroundColor: AppTheme.creamyBackground,
                   textColor: AppTheme.darkGreenText,
                   onPressed: () {
-                    // Navigasi ke Identitas Driver
                     Navigator.push(
                       context,
                       MaterialPageRoute(

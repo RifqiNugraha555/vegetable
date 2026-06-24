@@ -9,7 +9,6 @@ import 'otp_verification_screen.dart';
 class RegisterDriverVehicleScreen extends StatelessWidget {
   const RegisterDriverVehicleScreen({super.key});
 
-  // Widget custom khusus buat tombol upload BPKB & STNK biar rapi
   Widget _buildUploadField(String label, String hint) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -70,7 +69,6 @@ class RegisterDriverVehicleScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                // --- TOMBOL BACK ---
                 Align(
                   alignment: Alignment.topLeft,
                   child: InkWell(
@@ -97,7 +95,6 @@ class RegisterDriverVehicleScreen extends StatelessWidget {
 
                 const SizedBox(height: 20),
 
-                // --- JUDUL HALAMAN ---
                 const Text(
                   'Detail\nKendaraan',
                   textAlign: TextAlign.center,
@@ -111,28 +108,24 @@ class RegisterDriverVehicleScreen extends StatelessWidget {
 
                 const SizedBox(height: 40),
 
-                // --- FORM INPUT FIELDS ---
                 const CustomTextField(
                   label: 'Nama Kendaraan',
                   hintText: 'Masukkan Nama Kendaraan (cth: Honda Vario)',
                 ),
                 const SizedBox(height: 16),
 
-                // --- TAMBAHAN DARI LU: PLAT NOMOR ---
                 const CustomTextField(
                   label: 'Plat Nomor',
                   hintText: 'Masukkan Plat Nomor (cth: D 1234 ABC)',
                 ),
                 const SizedBox(height: 16),
 
-                // --- UPLOAD BPKB & STNK ---
                 _buildUploadField('Foto BPKB', 'Upload Foto BPKB'),
                 const SizedBox(height: 16),
 
                 _buildUploadField('Foto STNK', 'Upload Foto STNK'),
                 const SizedBox(height: 16),
 
-                // --- KOTAK UPLOAD FOTO MOTOR ---
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -173,7 +166,6 @@ class RegisterDriverVehicleScreen extends StatelessWidget {
 
                 const SizedBox(height: 50),
 
-                // --- TOMBOL NEXT ---
                 CustomButton(
                   text: 'N E X T',
                   backgroundColor: AppTheme.creamyBackground,

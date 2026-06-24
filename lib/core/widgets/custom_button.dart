@@ -6,8 +6,8 @@ import '../../theme/app_theme.dart';
 class CustomButton extends StatelessWidget {
   final String text;
   final VoidCallback onPressed;
-  final Color? backgroundColor; // Tambahan opsi warna background
-  final Color? textColor; // Tambahan opsi warna teks
+  final Color? backgroundColor;
+  final Color? textColor;
 
   const CustomButton({
     super.key,
@@ -20,12 +20,11 @@ class CustomButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: 240, // Lebar dibikin fix biar konsisten kayak di mockup
+      width: 240,
       height: 55,
       child: ElevatedButton(
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(
-          // Kalau warna custom diisi, pake itu. Kalau kosong, pake warna default tema
           backgroundColor: backgroundColor ?? AppTheme.lightGreenButton,
           foregroundColor: textColor ?? AppTheme.darkGreenText,
           elevation: 0,
@@ -36,7 +35,7 @@ class CustomButton extends StatelessWidget {
           style: const TextStyle(
             fontSize: 20,
             fontWeight: FontWeight.bold,
-            letterSpacing: 6.0, // Jarak antar huruf D R I V E R
+            letterSpacing: 6.0,
           ),
         ),
       ),

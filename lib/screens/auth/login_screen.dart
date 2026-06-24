@@ -48,7 +48,6 @@ class _LoginScreenState extends State<LoginScreen> {
         MaterialPageRoute(builder: (context) => const CustomerHomeScreen()),
       );
     } else {
-      // Jika email tidak sesuai, tampilkan pesan error
       showDialog(
         context: context,
         builder: (context) => AlertDialog(
@@ -83,7 +82,6 @@ class _LoginScreenState extends State<LoginScreen> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                // Logo atau Icon Aplikasi
                 const Icon(
                   Icons.shopping_basket,
                   size: 80,
@@ -106,14 +104,12 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 const SizedBox(height: 48),
 
-                // Kolom Input Email
                 TextField(
                   controller: _emailController,
                   keyboardType: TextInputType.emailAddress,
                   style: const TextStyle(color: Colors.black87),
                   decoration: InputDecoration(
-                    hintText:
-                        'Email (contoh: admin@gmail.com)', // Hint disesuaikan
+                    hintText: 'Email (contoh: admin@gmail.com)',
                     filled: true,
                     fillColor: AppTheme.creamyBackground,
                     prefixIcon: const Icon(
@@ -128,7 +124,6 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 const SizedBox(height: 16),
 
-                // Kolom Input Password
                 TextField(
                   controller: _passwordController,
                   obscureText: true,
@@ -149,7 +144,6 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 const SizedBox(height: 32),
 
-                // Tombol Login
                 SizedBox(
                   width: double.infinity,
                   child: CustomButton(
