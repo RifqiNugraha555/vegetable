@@ -11,21 +11,17 @@ class RegisterRoleScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // Timpa background-nya jadi hijau tua khusus di halaman ini
       backgroundColor: AppTheme.darkGreenText,
       body: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            //TOMBOL BACK
             Align(
               alignment: Alignment.topLeft,
               child: Padding(
                 padding: const EdgeInsets.all(20.0),
                 child: InkWell(
-                  onTap: () => Navigator.pop(
-                    context,
-                  ), // Perintah buat balik ke halaman sebelumnya
+                  onTap: () => Navigator.pop(context),
                   child: Container(
                     padding: const EdgeInsets.symmetric(
                       horizontal: 20,
@@ -48,27 +44,26 @@ class RegisterRoleScreen extends StatelessWidget {
               ),
             ),
 
-            const Spacer(flex: 1), // Dorong konten ke tengah
-            // --- JUDUL HALAMAN ---
+            const Spacer(flex: 1),
+
             const Text(
               'Daftar\nSebagai',
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 36,
                 fontWeight: FontWeight.bold,
-                color: AppTheme.creamyBackground, // Teks warna krem
-                height: 1.2, // Jarak antar baris teks
+                color: AppTheme.creamyBackground,
+                height: 1.2,
               ),
             ),
 
-            const SizedBox(height: 60), // Jarak dari judul ke tombol
-            // --- TOMBOL PILIHAN ROLE ---
+            const SizedBox(height: 60),
+
             CustomButton(
               text: 'DRIVER',
               backgroundColor: AppTheme.creamyBackground,
               textColor: AppTheme.darkGreenText,
               onPressed: () {
-                // Navigasi pindah ke halaman Register Driver
                 Navigator.push(
                   context,
                   MaterialPageRoute(
@@ -78,14 +73,13 @@ class RegisterRoleScreen extends StatelessWidget {
               },
             ),
 
-            const SizedBox(height: 30), // Jarak antar tombol
+            const SizedBox(height: 30),
 
             CustomButton(
               text: 'CUSTOMER',
               backgroundColor: AppTheme.creamyBackground,
               textColor: AppTheme.darkGreenText,
               onPressed: () {
-                // Navigasi ke halaman form regis customer
                 Navigator.push(
                   context,
                   MaterialPageRoute(
@@ -111,7 +105,7 @@ class RegisterRoleScreen extends StatelessWidget {
               },
             ),
 
-            const Spacer(flex: 2), // Sisa ruang di bawah
+            const Spacer(flex: 2),
           ],
         ),
       ),

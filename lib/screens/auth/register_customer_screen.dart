@@ -12,7 +12,7 @@ class RegisterCustomerScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppTheme.darkGreenText, // BG Hijau Tua
+      backgroundColor: AppTheme.darkGreenText,
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
@@ -23,7 +23,6 @@ class RegisterCustomerScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                // --- TOMBOL BACK ---
                 Align(
                   alignment: Alignment.topLeft,
                   child: InkWell(
@@ -50,7 +49,6 @@ class RegisterCustomerScreen extends StatelessWidget {
 
                 const SizedBox(height: 20),
 
-                // --- JUDUL HALAMAN ---
                 const Text(
                   'Daftar\nCustomer',
                   textAlign: TextAlign.center,
@@ -64,7 +62,6 @@ class RegisterCustomerScreen extends StatelessWidget {
 
                 const SizedBox(height: 40),
 
-                // --- FORM INPUT FIELDS ---
                 const CustomTextField(
                   label: 'Username',
                   hintText: 'Masukkan Username',
@@ -98,7 +95,6 @@ class RegisterCustomerScreen extends StatelessWidget {
 
                 const SizedBox(height: 50),
 
-                // --- TOMBOL NEXT ---
                 CustomButton(
                   text: 'N E X T',
                   backgroundColor: AppTheme.creamyBackground,

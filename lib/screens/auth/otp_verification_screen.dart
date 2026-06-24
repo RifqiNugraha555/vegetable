@@ -10,7 +10,7 @@ class OtpVerificationScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppTheme.darkGreenText, // BG Hijau Tua
+      backgroundColor: AppTheme.darkGreenText,
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
@@ -21,7 +21,6 @@ class OtpVerificationScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                // --- TOMBOL BACK ---
                 Align(
                   alignment: Alignment.topLeft,
                   child: InkWell(
@@ -48,7 +47,6 @@ class OtpVerificationScreen extends StatelessWidget {
 
                 const SizedBox(height: 40),
 
-                // --- JUDUL HALAMAN ---
                 const Text(
                   'Verifikasi OTP',
                   textAlign: TextAlign.center,
@@ -61,14 +59,13 @@ class OtpVerificationScreen extends StatelessWidget {
 
                 const SizedBox(height: 80),
 
-                // --- INPUT BOX OTP ---
                 TextFormField(
-                  textAlign: TextAlign.center, // Teks di tengah
-                  keyboardType: TextInputType.number, // Keyboard angka
+                  textAlign: TextAlign.center,
+                  keyboardType: TextInputType.number,
                   style: const TextStyle(
                     color: AppTheme.creamyBackground,
                     fontSize: 16,
-                    letterSpacing: 2.0, // Biar angkanya agak berjarak
+                    letterSpacing: 2.0,
                   ),
                   decoration: InputDecoration(
                     hintText: 'Masukkan  OTP',
@@ -99,7 +96,6 @@ class OtpVerificationScreen extends StatelessWidget {
 
                 const SizedBox(height: 24),
 
-                // --- TEKS INSTRUKSI BAWAH ---
                 const Text(
                   'Masukkan Kode OTP yang di Kirimkan Ke\nemail asjbfhahsf***@gmail.com',
                   textAlign: TextAlign.center,
@@ -112,7 +108,6 @@ class OtpVerificationScreen extends StatelessWidget {
 
                 const SizedBox(height: 120),
 
-                // --- TOMBOL DAFTAR ---
                 CustomButton(
                   text: 'D a f t a r',
                   backgroundColor: AppTheme.creamyBackground,
